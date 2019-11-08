@@ -23606,32 +23606,18 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 	//*********************************************************************************
-	function parseCertificate() {
+	function parseCertificate(file) {
+
+		certificateBuffer = file;
 		//region Initial check
 		if (certificateBuffer.byteLength === 0) {
-			alert("Nothing to parse!");
+			alert("El certificado de e.firma no es valido");
 			return;
 		}
 		//endregion
 
-	
-		//region Initial activities
-		document.getElementById("cert-extn-div").style.display = "none";
+		var subject = [];
 
-		var issuerTable = document.getElementById("cert-issuer-table");
-		while (issuerTable.rows.length > 1) {
-			issuerTable.deleteRow(issuerTable.rows.length - 1);
-		}
-
-		var subjectTable = document.getElementById("cert-subject-table");
-		while (subjectTable.rows.length > 1) {
-			subjectTable.deleteRow(subjectTable.rows.length - 1);
-		}
-
-		var extensionTable = document.getElementById("cert-extn-table");
-		while (extensionTable.rows.length > 1) {
-			extensionTable.deleteRow(extensionTable.rows.length - 1);
-		} //endregion
 
 		//region Decode existing X.509 certificate
 		var asn1 = fromBER(certificateBuffer);
@@ -23669,13 +23655,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 				var subjval = typeAndValue.value.valueBlock.value;
 
-				var row = issuerTable.insertRow(issuerTable.rows.length);
-				var cell0 = row.insertCell(0);
-				// noinspection InnerHTMLJS
-				cell0.innerHTML = typeval;
-				var cell1 = row.insertCell(1);
-				// noinspection InnerHTMLJS
-				cell1.innerHTML = subjval;
+				console.log("Issuer " + typeval +" : "+subjval);
 			}
 			//endregion
 
@@ -23702,19 +23682,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 		try {
 			for (var _iterator33 = certificate.subject.typesAndValues[Symbol.iterator](), _step33; !(_iteratorNormalCompletion33 = (_step33 = _iterator33.next()).done); _iteratorNormalCompletion33 = true) {
 				var _typeAndValue = _step33.value;
-
 				var typeval = rdnmap[_typeAndValue.type];
 				if (typeof typeval === "undefined") typeval = _typeAndValue.type;
-
-				var subjval = _typeAndValue.value.valueBlock.value;
-
-				var row = subjectTable.insertRow(subjectTable.rows.length);
-				var cell0 = row.insertCell(0);
-				// noinspection InnerHTMLJS
-				cell0.innerHTML = typeval;
-				var cell1 = row.insertCell(1);
-				// noinspection InnerHTMLJS
-				cell1.innerHTML = subjval;
+				var subjval = _typeAndValue.value.valueBlock.value;				
+				console.log("Subject " + typeval +" : "+subjval);
+				if(typeval === "CN") subject["name"] = subjval;
+				if(typeval === "2.5.4.45") subject["rfc"] = subjval;
+				if(typeval === "2.5.4.5") subject["curp"] = subjval;
+				if(typeval === "E-mail") subject["email"] = subjval;
 			}
 			//endregion
 
@@ -23735,14 +23710,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 			}
 		}
 
-		Console.log(bufferToHexCodes(certificate.serialNumber.valueBlock.valueHex));
-		Console.log(certificate.notBefore.value.toString());
-		Console.log(certificate.notAfter.value.toString());
-		//document.getElementById("cert-serial-number").innerHTML = bufferToHexCodes(certificate.serialNumber.valueBlock.valueHex);
-		//document.getElementById("cert-not-before").innerHTML = certificate.notBefore.value.toString();
-		//document.getElementById("cert-not-after").innerHTML = certificate.notAfter.value.toString();
+		console.log("Serial number: " + bufferToHexCodes(certificate.serialNumber.valueBlock.valueHex));
+		console.log("Issuance date: " + certificate.notBefore.value.toString());
+		console.log("Expiration date: " + certificate.notAfter.value.toString());
 		
-
+		
 		//region Put information about subject public key size
 		var publicKeySize = "< unknown >";
 
@@ -23758,8 +23730,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 			publicKeySize = modulusBitLength.toString();
 		}
 
-		// noinspection InnerHTMLJS
-		document.getElementById("cert-keysize").innerHTML = publicKeySize;
+		console.log("Public key size (bits):" + publicKeySize);
 		//endregion
 
 		//region Put information about signature algorithm
@@ -23782,22 +23753,20 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 		var signatureAlgorithm = algomap[certificate.signatureAlgorithm.algorithmId];
 		if (typeof signatureAlgorithm === "undefined") signatureAlgorithm = certificate.signatureAlgorithm.algorithmId;else signatureAlgorithm = `${signatureAlgorithm} (${certificate.signatureAlgorithm.algorithmId})`;
 
-		// noinspection InnerHTMLJS
-		document.getElementById("cert-sign-algo").innerHTML = signatureAlgorithm;
+		console.log("Signature algorithm: " + signatureAlgorithm);
 		//endregion
 
 		//region Put information about certificate extensions
 		if ("extensions" in certificate) {
 			for (var i = 0; i < certificate.extensions.length; i++) {
-				var row = extensionTable.insertRow(extensionTable.rows.length);
-				var cell0 = row.insertCell(0);
-				// noinspection InnerHTMLJS
-				cell0.innerHTML = certificate.extensions[i].extnID;
+				
+				console.log("OID: " + certificate.extensions[i].extnID);
 			}
 
-			document.getElementById("cert-extn-div").style.display = "block";
 		}
 		//endregion
+
+		return subject;
 	}
 
 
@@ -24117,11 +24086,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 		}
 	}
 	//*********************************************************************************
-	function handleFileBrowse(evt) {
+	/*function handleFileBrowse(evt) {
+
 		var tempReader = new FileReader();
-
 		var currentFiles = evt.target.files;
-
 		// noinspection AnonymousFunctionJS
 		tempReader.onload = function (event) {
 			// noinspection JSUnresolvedVariable
@@ -24130,8 +24098,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 		};
 
 		tempReader.readAsArrayBuffer(currentFiles[0]);
-	}
+		document.getElementById('cer_label').innerHTML = currentFiles[0].name;
+	}*/
 	//*********************************************************************************
+
 	function handleTrustedCertsFile(evt) {
 		var tempReader = new FileReader();
 
@@ -24326,7 +24296,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 	window.createCertificate = createCertificate;
 	window.verifyCertificate = verifyCertificate;
 	window.parseCAbundle = parseCAbundle;
-	window.handleFileBrowse = handleFileBrowse;
+	//window.handleFileBrowse = handleFileBrowse;
 	window.handleTrustedCertsFile = handleTrustedCertsFile;
 	window.handleInterCertsFile = handleInterCertsFile;
 	window.handleCRLsFile = handleCRLsFile;

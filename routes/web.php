@@ -18,3 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('/nomina', 'ImpuestoNominaController@index')->name('nomina');
+Route::get('/nomina_declaracion', 'ImpuestoNominaController@declaracion')->name('nomina_declaracion');
+Route::get('/nomina_edoscta', 'ImpuestoNominaController@estados')->name('nomina_edoscta');
+Route::post('/xmlsat', 'ImpuestoNominaController@xmlsat')->name('xmlsat');;
+
