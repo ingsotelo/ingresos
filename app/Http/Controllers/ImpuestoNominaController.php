@@ -21,9 +21,9 @@ class ImpuestoNominaController extends Controller
         return view('nomina');
     }
 
-    public function padron()
+    public function registro()
     {
-        return view('nomina');
+        return view('nomina_registro',['hoy' => date("Y-m-d")]);
     }
 
     public function declaracion()

@@ -14,21 +14,23 @@
                         </div>
                     @endif
 
-                    <h3>2 % Sobre Nómina</h3>
+                    <h3>Impuesto Sobre Nómina</h3>
                     <hr>
                     <p><b>Cumplir con la obligación fiscal referente a la inscripción y pago  del impuesto sobre nómina que realiza respecto al personal a su cargo dentro del territorio del Estado de Guerrero.</b></p>
 
                     <div class="form-group row justify-content-center">
                         <div class="col-md-8">
-                            <button type="submit" class="btn btn-success btn-lg btn-block">
+                            <a href="{{ route('nomina_registro') }}" class="btn btn-success btn-lg btn-block" role="button">
                                 {{ __('Alta, Reanudación, Baja o Suspensión') }}
-                            </button>
+                            </a>
                         </div>
                     </div>
 
                     <div class="form-group row justify-content-center">
                         <div class="col-md-8">
-                            <a href="{{ route('nomina_declaracion') }}" class="btn btn-success btn-lg btn-block" role="button">{{ __('Declaraciones Mensuales') }} </a>
+                            <a href="{{ route('nomina_declaracion') }}" class="btn btn-success btn-lg btn-block" role="button">
+                                {{ __('Declaraciones Mensuales') }} 
+                            </a>
                         </div>
                     </div>
 

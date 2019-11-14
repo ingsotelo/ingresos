@@ -177,7 +177,7 @@
                                 <button class="btn btn-primary" id="btn_send">
                                     {{ __('Enviar Declaracion') }}
                                 </button>
-                                <a class="btn btn-primary" href="{{ route('nomina_declaracion') }}" role="button">
+                                <a class="btn btn-primary" href="{{ route('nomina') }}" role="button">
                                     {{ __('Cancelar') }}
                                 </a>
                             </div>  
@@ -357,7 +357,6 @@
                 })
                 
               } else if (
-                /* Read more about handling dismissals below */
                 result.dismiss === Swal.DismissReason.cancel
               ) {
                 Swal.fire(

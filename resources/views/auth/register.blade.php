@@ -237,7 +237,6 @@
             var pemString = KJUR.asn1.ASN1Util.getPEMStringFromHex(hex, 'CERTIFICATE');
             var certificado = new X509();
             certificado.readCertPEM(pemString);
-
             var hSerial    = certificado.getSerialNumberHex();
             var sIssuer    = certificado.getIssuerString(); 
             var sSubject   = parseString(certificado.getSubjectString()); 
@@ -268,7 +267,6 @@
                         objFilePrivateKey.disabled = true;
                         contrasena.disabled = true;
                         document.getElementById("btn_div").style.display = "none";
-
                         document.getElementById('name').value = sSubject.CN;
                         document.getElementById('name').readOnly = true;
                         document.getElementById('rfc').value = sSubject.uniqueIdentifier;

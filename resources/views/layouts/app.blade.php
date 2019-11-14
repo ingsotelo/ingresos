@@ -25,6 +25,13 @@
     <!-- Styles -->
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style type="text/css">
+        body {
+            background: linear-gradient(50deg, #006231, hsla(179,54%,76%,1));
+        }
+        
+    </style>
     @yield('styles')
 </head>
 <body>
@@ -65,10 +72,12 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     
-                                    <a class="dropdown-item" href="{{ route('nomina') }}">
-                                        <i class="far fa-file-alt"></i>{{ __(' Constancias') }}
+                                    <a class="dropdown-item" href="#">
+                                        <i class="far fa-file-alt"></i>{{ __(' Constancia de no Inhabilitacion') }}
                                     </a>
-                                    
+                                    <a class="dropdown-item" href="https://www.gob.mx/ActaNacimiento/" target="_blank">
+                                        <i class="far fa-file-alt"></i>{{ __(' Acta de nacimiento') }}
+                                    </a>
                                 </div>
                             </li>
 
@@ -80,15 +89,11 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     
                                     <a class="dropdown-item" href="{{ route('nomina') }}">
-                                        <i class="fas fa-users"></i>{{ __(' 2% Sobre Nómina') }}
+                                        <i class="fas fa-users"></i>{{ __(' Sobre Nómina.') }}
                                     </a>
 
                                     <a class="dropdown-item" href="#">
-                                        <i class="fas fa-car"></i>{{ __(' Automóviles Nuevos') }}
-                                    </a>
-
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-user-md"></i>{{ __(' Profesión Médica') }}
+                                        <i class="fas fa-hotel"></i>{{ __(' Sobre Hospedaje.') }}
                                     </a>
 
                                     
@@ -102,11 +107,11 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{{ route('notificaciones') }}">
                                         <i class="far fa-envelope"></i>{{ __(' Notificaciones ') }}<span class="badge badge-info">0</span>
                                     </a>
 
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{{ route('perfil') }}">
                                         <i class="far fa-address-card"></i>{{ __(' Perfil del Contribuyente ') }}
                                     </a>
 
@@ -130,6 +135,40 @@
         <main class="py-4">
             @yield('content')
         </main>
+            <div>   
+                <img src="{{ asset('img/PlecaTejidos.jpg') }}" class="img-responsive" id = "img_pleca" style=" width: 100%; height:40px ; display:block; margin:0px; margin-top: 30px;">
+
+                <p style="width: 100%;background: #006231;text-align: center;display: inline-block;margin: 0px; padding: 15px 0px; color:white;"> 
+                    <a target="_blank" href="http://www.prospectiva-xxi.com.mx" style="color: white;">La Subsecretaría de Ingresos de la Secretaría de Finanzas y Administración del Gobierno del Estado de Guerrero.</a> <br> Derechos reservados © Gobierno del Estado de Guerrero 2015-2021.
+                    <ul  style="width: 100%; background: #006231;text-align: center;display: inline-block;margin: 0px;padding: 15px 0px; ">                    
+                        <li style="display: inline;">
+                            <a href="mailto:soporte@portal.guerrero.gob.mx" style="color: white;"> 
+                                <i class="fa fa-envelope-square fa-2x"></i>
+                            </a>
+                        </li>
+
+                        <li style="display: inline;"> 
+                            <a target="_blank" href="https://www.facebook.com/AstudilloFloresHector" style="color: white;"> 
+                                <i class="fab fa-facebook-square fa-2x"></i>
+                            </a>
+                        </li>
+
+                        <li style="display: inline;"> 
+                            <a target="_blank" href="https://twitter.com/HectorAstudillo" style="color: white;"> 
+                                <i class="fab fa-twitter-square fa-2x"></i> 
+                            </a>
+                        </li>
+
+                        <li style="display: inline;"> 
+                            <a target="_blank" href="https://www.youtube.com/channel/UCMgwbpKbXhzeXyZ4l_DvU3g" style="color: white;"> 
+                                <i class="fab fa-youtube-square fa-2x"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </p>
+
+            </div>
+        
     </div>
 @yield('scripts') 
 </body>

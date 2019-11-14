@@ -81,6 +81,7 @@
                 <div class="title m-b-md">
                     Ingresos
                 </div>
+
                 <div>
                     <p>Esta es una plataforma tecnológica, mediante la cual el contribuyente puede administrar</p>
                     <p>lo correspondiente a sus contribuciones estatales, mediante el uso de la e.firma vigente</p>
@@ -91,6 +92,11 @@
                     <a href="#">Manual de Usuario</a>
                     <a href="https://www.gob.mx/cms/uploads/attachment/file/445443/Aviso_INTEGRAL_Coordinacion_DGEP_00.pdf">Política de Privacidad</a>
                     <a href="#">Contacto</a>
+                </div>
+
+                <div class="visible-print text-center">
+                    <p>Escanéame para descargar nuestra Android App.</p>
+                    {!! QrCode::size(160)->generate(Request::url()); !!}
                 </div>
             </div>
         </div>
