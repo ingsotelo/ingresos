@@ -16,37 +16,35 @@
                Notificaciones
               </div>
               <div class="card-body">
-                  <div class="form-group row">
-                    <div class="col-md-1"><p>#</p></div>
-                    <div class="col-md-3"><p>Fecha</p></div>
-                    <div class="col-md-4"><p>Notificacion</p></div>
-                    
-                    <div class="col-md-4"><p>Documento</p></div>
-                  </div>
-
-                  @foreach ($notificaciones as $notificacion)
-
-                  <div class="form-group row">
-                    <div class="col-md-1"><p>{{ $notificacion->id }}</p></div>
-                    <div class="col-md-3"><p>{{ $notificacion->created_at }}</p></div>
-                    <div class="col-md-4"><p>{{ $notificacion->nombre }}</p></div>
-                    <div class="col-md-4"><a href='getpdf'>Download</a></div>
-
-
-                  </div>
-                
-                 @endforeach
-              
-                  
-                  
-                  <div class="form-group row mb-0">
-                    <div class="col-md-6">
-                      <a class="btn btn-primary" href="{{ route('nomina') }}" role="button">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                          <thead class="thead-dark">
+                            <tr>
+                              <th scope="col">Id</th>
+                              <th scope="col">Fecha</th>
+                              <th scope="col">Notificacion</th>
+                              <th scope="col">Documento</th>
+                            </tr>
+                          </thead>
+                          @foreach ($notificaciones as $notificacion)
+                          <tbody>
+                            <tr>
+                              <th scope="row">{{ $notificacion->id }}</th>
+                              <td>{{ $notificacion->created_at }}</td>
+                              <td>{{ $notificacion->nombre }}</td>
+                              <td><a href="{{route('getpdf', str_replace('/', '%', $notificacion->documento))}}"><i class="fas fa-file-download"></i> Descargar Documento Electronico</a></td>
+                            </tr>
+                          </tbody>
+                          @endforeach
+                  </table>
+                </div>
+                <div class="form-group row mb-0">
+                  <div class="col-md-6">
+                    <a class="btn btn-primary" href="{{ route('nomina') }}" role="button">
                         {{ __('Cancelar') }}
-                      </a>
-                    </div>  
-                  </div>
-
+                    </a>
+                  </div>  
+                </div>
               </div>
           </div>
         </div>

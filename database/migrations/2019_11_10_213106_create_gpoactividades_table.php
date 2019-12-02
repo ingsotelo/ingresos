@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateActividadesTable extends Migration
+class CreateGpoactividadesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateActividadesTable extends Migration
      */
     public function up()
     {
-        Schema::create('actividades', function (Blueprint $table) {
+        Schema::create('gpoactividades', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('clave');
+            $table->string('clave_gpoactividades');
             $table->string('descripcion');
         });
     }
@@ -27,6 +27,6 @@ class CreateActividadesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('actividades');
+        Schema::dropIfExists('gpoactividades');
     }
 }

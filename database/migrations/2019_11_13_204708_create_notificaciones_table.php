@@ -18,6 +18,7 @@ class CreateNotificacionesTable extends Migration
             $table->string('rfc');
             $table->string('nombre');
             $table->string('documento');
+            $table->string('tipo');
             $table->timestamps();
         });
     }

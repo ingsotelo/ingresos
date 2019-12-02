@@ -7,6 +7,9 @@ use App\MyApp\DescargaMasivaCfdi;
 use App\MyApp\BusquedaEmitidos;
 use App\MyApp\DescargaAsincrona;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use PDF;
 
 class ImpuestoNominaController extends Controller
 {
@@ -111,4 +114,55 @@ class ImpuestoNominaController extends Controller
         }
         return response()->json($array); 
     }
+
+    public function saveRegistro(){
+        
+            $data = 
+             [
+                'rfc' => "SOSS821123JK1",
+                'curp' => "SOSS821123HGRTSL19",
+                'nombre' => "SALOMON SORELO SUASTEGUI",
+                'email' => "ING.SOTELO@OUTLOOK.COM",
+                'actividad' => "HOTELES, MOTELES Y SIMILARES",
+                'subactividad' => "SERVICIOS DE ALOJAMIENTO TEMPORAL",
+                'gpoactividad' => "SERVICIOS DE ALOJAMIENTO TEMPORAL Y DE PREPARACIÓN DE ALIMENTOS Y BEBIDAS",
+                'colonia' => "Chilpancingo de los Bravos Centro",
+                'municipio' => "Chilpancingo de los Bravo",
+                'ciudad' => "Chilpancingo de los Bravo",
+                'codigo' => "39000",
+                'calle' => "ANDADOR ZAPATA",
+                'numero' => "13",
+                'fijo' =>   "7474941875",
+                'movil' => "7471228241",
+                'fecha_alta' => Carbon::now()->toDateTimeString(),
+                'qrcode' => "Este es el link de la informacion del archivo"
+             ];
+            Storage::disk('local')->put('notificacion/perfil/'.'SOSS821123JK1'.'/'.'SOSS821123JK1'.'_nomina.pdf', 
+                PDF::loadView('pdf_nomina', $data)->output());
+        try {
+
+            DB::table('notificaciones')->insert(
+            [
+                'rfc' => "SOSS821123JK1", 
+                'nombre' => 'Alta de Obligacion del Impuesto sobre Nomina', 
+                'documento' => 'notificacion/perfil/'.'SOSS821123JK1'.'/'.'SOSS821123JK1'.'_nomina.pdf',
+                'tipo' => 'alta_nomia', 
+                'created_at' => Carbon::now()->toDateTimeString(),
+            ]
+            );
+
+        } catch (\Exception $e) {
+             return response()->json([
+                'message'   => 'error',
+                'errors' => $e,
+            ]);
+        }
+
+        return response()->json([
+            'message'   => 'success',
+            'errors' => '',
+        ]);
+        
+    }
+
 }

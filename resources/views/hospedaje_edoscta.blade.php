@@ -13,7 +13,7 @@
         <div class="col-md-10">
           <div class="card">
               <div class="card-header text-center text-white bg-success">
-                Estados de Cuenta del Impuesto Sobre Remuneración al Trabajo Personal
+                Estados de Cuenta del Impuesto Sobre Hospedaje
               </div>
               <div class="card-body">
                   <div class="form-group row">
@@ -37,9 +37,9 @@
                           <td>0</td>
                           <td>$0.00</td>
                           <td>$0.00</td>
-                          <td><a href="#">Normal</a></td>
+                          <td>Normal</td>
                           <td><span class="badge badge-success">Pagado 2019-10-05</span></td>
-                          <td><a href="{{asset('recibo.pdf')}}">Descargar Factura</a></td>
+                          <td><a href="{{asset('recibo.pdf')}}">Descargar Recibo</a></td>
                         </tr>
                         <tr>
                           <th scope="row">2019-10</th>
@@ -47,7 +47,7 @@
                           <td>2</td>
                           <td>$113.94</td>
                           <td>$11.39</td>
-                          <td><a href="#">Normal</a></td>
+                          <td>Normal</td>
                           <td><span class="badge badge-danger">Vencido</span></td>
                           <td><a href="#" data-toggle="modal" data-target="#myModal">Pagar Impuestos</a></td>
                         </tr>
@@ -57,7 +57,7 @@
                           <td>2</td>
                           <td>$113.94</td>
                           <td>$0.00</td>
-                          <td><a href="#">Normal</a></td>
+                          <td>Normal</td>
                           <td><span class="badge badge-warning">Vigente</span></td>
                           <td><a href="#" data-toggle="modal" data-target="#myModal">{{ __('Pagar Impuestos') }}</a>
                           </td>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubactividadesTable extends Migration
+class CreateActividadesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateSubactividadesTable extends Migration
      */
     public function up()
     {
-        Schema::create('subactividades', function (Blueprint $table) {
+        Schema::create('actividades', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('clave_gpoactividades');
             $table->string('clave_subactividades');
+            $table->string('clave_actividades');
             $table->string('descripcion');
         });
     }
@@ -28,6 +28,6 @@ class CreateSubactividadesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subactividades');
+        Schema::dropIfExists('actividades');
     }
 }

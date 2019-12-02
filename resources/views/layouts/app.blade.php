@@ -36,9 +36,10 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background-color: #E5E0DC;">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
+                    <img src="{{asset('img/logo-gro.png')}}" width="30" height="30" class="d-inline-block align-top" alt="">
                     {{ config('app.name', 'Ingresos') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -78,6 +79,9 @@
                                     <a class="dropdown-item" href="https://www.gob.mx/ActaNacimiento/" target="_blank">
                                         <i class="far fa-file-alt"></i>{{ __(' Acta de nacimiento') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('opinionDownload') }}">
+                                        <i class="far fa-file-alt"></i>{{ __(' Opinion del Cumplimiento ') }}
+                                    </a>
                                 </div>
                             </li>
 
@@ -92,8 +96,35 @@
                                         <i class="fas fa-users"></i>{{ __(' Sobre Nómina.') }}
                                     </a>
 
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{{ route('hospedaje') }}">
                                         <i class="fas fa-hotel"></i>{{ __(' Sobre Hospedaje.') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-car-side"></i>{{ __(' Tenencia Vehicular.') }}
+                                    </a>
+
+                                    
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                   {{ __(' AMINISTRACION ') }}<span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    
+                                    <a class="dropdown-item" href="{{ route('panel') }}">
+                                        <i class="fas fa-chart-line"></i>{{ __(' Dashboard') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ route('users') }}">
+                                        <i class="fas fa-users-cog"></i>{{ __(' Usuarios') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-money-check-alt"></i>{{ __(' Caja') }}
                                     </a>
 
                                     
@@ -108,12 +139,13 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     
                                     <a class="dropdown-item" href="{{ route('notificaciones') }}">
-                                        <i class="far fa-envelope"></i>{{ __(' Notificaciones ') }}<span class="badge badge-info">0</span>
+                                        <i class="far fa-envelope"></i>{{ __(' Notificaciones ') }}
                                     </a>
 
                                     <a class="dropdown-item" href="{{ route('perfil') }}">
-                                        <i class="far fa-address-card"></i>{{ __(' Perfil del Contribuyente ') }}
+                                        <i class="far fa-address-card"></i>{{ __(' Perfil del Usuario ') }}
                                     </a>
+
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

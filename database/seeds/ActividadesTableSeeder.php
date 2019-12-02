@@ -11,51 +11,38 @@ class ActividadesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('actividades')->insert([
-            'clave' => '01',
-            'descripcion' => 'Recursos Naturales'
-        ]);
 
-        DB::table('actividades')->insert([
-            'clave' => '02',
-            'descripcion' => 'Construcción'
-        ]);
-        DB::table('actividades')->insert([
-            'clave' => '03',
-            'descripcion' => 'Fabricación, producción o elaboración'
-        ]);
+        if(($handle = fopen (public_path().'/Actividades.csv','r')) !== FALSE) {
+            
+            while( ($csv_data = fgetcsv ( $handle, 1000, '|' )) != FALSE ){
+                $codigo = $csv_data[0];
+                $descripcion = $csv_data[1];
+                if(strlen($codigo) == 2){
+                    DB::table('gpoactividades')->insert([
+                        'clave_gpoactividades' => $codigo,
+                        'descripcion' => strtoupper ( $descripcion )
+                    ]);
+                }elseif(strlen($codigo) == 3){
+                    $codigoGpo = substr($codigo, 0, 2);
+                    DB::table('subactividades')->insert([
+                        'clave_gpoactividades' => $codigoGpo,
+                        'clave_subactividades' => $codigo,
+                        'descripcion' => strtoupper ( $descripcion )
+                    ]);
+                }elseif(strlen($codigo) > 3){
+                    $codigoSub = substr($codigo, 0, 3);
+                    DB::table('actividades')->insert([
+                        'clave_subactividades' => $codigoSub,
+                        'clave_actividades' => $codigo,
+                        'descripcion' => strtoupper ( $descripcion )
+                    ]);
+                }
 
-        DB::table('actividades')->insert([
-            'clave' => '04',
-            'descripcion' => 'Comercio al por mayor'
-        ]);
-        DB::table('actividades')->insert([
-            'clave' => '05',
-            'descripcion' => 'Comercio al por menor'
-        ]);
+            }
+            fclose($handle);
+        }
+        
 
-        DB::table('actividades')->insert([
-            'clave' => '06',
-            'descripcion' => 'Transporte'
-        ]);
-        DB::table('actividades')->insert([
-            'clave' => '07',
-            'descripcion' => 'Comunicación'
-        ]);
-
-        DB::table('actividades')->insert([
-            'clave' => '08',
-            'descripcion' => 'Servicios'
-        ]);
-        DB::table('actividades')->insert([
-            'clave' => '09',
-            'descripcion' => 'Otros Ingresos'
-        ]);
-
-        DB::table('actividades')->insert([
-            'clave' => '10',
-            'descripcion' => 'Gobierno'
-        ]);
     }
 }
 

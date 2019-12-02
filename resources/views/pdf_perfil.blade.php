@@ -56,25 +56,30 @@
   </tr>
   <tr>
     <th>Número de Telefono Fijo:</th>
-    <td>-</td>
+    <td>{{$fijo}}</td>
   </tr>
   <tr>
     <th>Número de Telefono Móvil:</th>
-    <td>-</td>
+    <td>{{$movil}}</td>
   </tr>
 </table>
 
-<p style="background-color:#EEEEEE;" align="left"><b>Datos de Ubicación:</b></p>
+<p style="background-color:#EEEEEE;" align="left"><b>Datos de la Actividad Económica:</b></p>
 
 <table width="100%">
   <tr>
-    <th>Actividad Económica:</th>
-    <td>{{$actividad}}</td>
+    <th>Grupo al que pertenece su Actividad Económica:</th>
+    <td>{{$gpoactividad}}</td>
   </tr>
   <tr>
     <th>Sub-Actividad Económica:</th>
     <td>{{$subactividad}}</td>
   </tr>
+  <tr>
+    <th>Actividad Económica Principal:</th>
+    <td>{{$actividad}}</td>
+  </tr>
+  
 </table>
 
 
@@ -85,7 +90,7 @@ conferidas a la autoridad fiscal.</p>
 
 
     <p><b>Cadena Original Sello:</b></p>
-    <p><small>||2019/11/11|SACY811001VE5|CONSTANCIA DE SITUACIÓN FISCAL|200001088888800000031||</small></p>
+    <p><small>||2019/11/11|{{$rfc}}|CONSTANCIA DE REGISTRO DE PERFIL|200001088888800000031||</small></p>
 
     <p><b>Sello Digital:</b></p>
     <p><small>XpEg4OxXufgq51lwsaTC1rWtzR6awC53D0Y667PQ14oSEiM8bcrujxI3O4uh/lkKO6oEU+yFme/dCIIB2DznCVL</small></p>

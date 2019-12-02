@@ -19,10 +19,10 @@ class CreateObligacionesRegistradasTable extends Migration
             $table->string('claveObligacion');
             $table->smallInteger('estado');
             $table->timestamp('fechaAlta');
-            $table->timestamp('fechaCausacion');
-            $table->timestamp('fechaBaja');
-            $table->timestamp('fechaReactivacion');
-            $table->timestamp('fechaIMSS');
+            //$table->timestamp('fechaCausacion');
+            //$table->timestamp('fechaBaja');
+            //$table->timestamp('fechaReactivacion');
+            //$table->timestamp('fechaIMSS');
             $table->string('registroIMSS');
             $table->string('doctoIMSS');
         });
