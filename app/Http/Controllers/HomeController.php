@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use PDF;
 use Zxing\QrReader;
+use Symfony\Component\Process\Process;
+use Illuminate\Support\Str;
+
 
 
 
@@ -197,5 +200,33 @@ class HomeController extends Controller
         return Storage::download(str_replace('%', '/', $file));
     }
 
+    public function getPdfdata(request $request)
+    {
+        
+        //poppler-utils
+           
+        if($request->hasFile('fiscal')){
+            $tmpFileName = Str::random(40);
+            Storage::disk('local')->putFileAs('tmp',$request->file('fiscal'),$tmpFileName);
+            $processImages = new Process('pdfimages -all '.storage_path('app/tmp/').$tmpFileName.' '.storage_path('app/tmp/').$tmpFileName); 
+            $processText = new Process('pdftotext '.storage_path('app/tmp/').$tmpFileName.' '.storage_path('app/tmp/').$tmpFileName.'.log');
+            try{
+                $processImages->mustRun();
+                $processText->mustRun();
+            }catch (ProcessFailedException $e){
+                return response()->json([
+                    'message'   =>  null,
+                    'errors' => $e->getMessage(),
+                ]);   
+            }
+            //Storage::delete('tmp/'.$tmpFileName.'.log');
+            //Storage::delete('tmp/'.$tmpFileName);
 
+        }else{        
+            return response()->json([
+                'message'   => null,
+                'errors' => 'no file uploaded',
+            ]);
+        }
+    }
 }

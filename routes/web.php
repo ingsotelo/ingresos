@@ -35,6 +35,7 @@ Route::get('/perfilDownload/{rfc}', 'HomeController@perfilDownload')->name('perf
 Route::get('/constanciaDownload/{rfc}', 'HomeController@constanciaDownload')->name('constanciaDownload');
 Route::get('/comprobanteDownload/{rfc}', 'HomeController@comprobanteDownload')->name('comprobanteDownload');
 Route::get('/getpdf/{file}', 'HomeController@getpdf')->name('getpdf');
+Route::post('/getPdfdata/', 'HomeController@getPdfdata')->name('getPdfdata');
 
 
 Route::get('/nomina', 'ImpuestoNominaController@index')->name('nomina');

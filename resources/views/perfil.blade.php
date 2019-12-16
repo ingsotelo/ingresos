@@ -16,6 +16,7 @@
               Registro del Perfil del Contribuyente
               </div>
                 <div class="card-body">
+
                   @if(isset($perfil))
                       <div class="row mb-3">
                         <div class="col-md-4">
@@ -93,9 +94,6 @@
                           </a>
                         </div>  
                       </div>
-
-
-
                   @else
                     <form id="upload_form" method="post"  enctype="multipart/form-data">
                       @csrf
@@ -300,6 +298,7 @@
                       </div>
                     </form>
                   @endif
+
                 </div>
             </div>
         </div>
@@ -441,10 +440,7 @@ $(document).ready(function(){
         return parseArray;
     }
 
-    document.getElementById("fiscal").addEventListener("change", fiscalChange, false);
-    function fiscalChange(){
-      document.getElementById('fiscal_label').innerHTML = this.files[0].name;
-    }
+    
 
     document.getElementById("domicilio").addEventListener("change", domicilioChange, false);
     function domicilioChange(){
@@ -629,6 +625,27 @@ $(document).ready(function(){
         readerCertificado.readAsArrayBuffer(objFileCertificate.files[0]);
     }
   
+    
+    document.getElementById("fiscal").addEventListener("change", fiscalChange, false);
+    function fiscalChange(){  
+      document.getElementById('fiscal_label').innerHTML = this.files[0].name;
+      
+      $.ajax({
+        type:'POST',
+        url: "{{ route('getPdfdata') }}",                     
+        data:new FormData($("#upload_form")[0]),
+                          dataType:'json',
+                          async:false,
+                          processData: false,
+                          contentType: false,
+          success:function(response){
+          console.log(response.message);
+          console.log(response.errors);
+        }
+      });
+    }
+
+
 });
 </script>
 @endsection
